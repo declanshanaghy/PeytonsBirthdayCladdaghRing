@@ -35,7 +35,7 @@ const RINGS = [
 // Memories, chronological. Caption shown under the memories pane.
 const MEMORIES = [
   ['20250821_194011.jpg', 'Moving into college'],
-  ['20250821_194047.jpg', 'Room 1, day 1'],
+  ['20250821_194047.jpg', 'Besties!'],
   ['20250821_202944.jpg', 'Best hairstylist ever'],
   ['20250822_165553.jpg', 'All moved in'],
   ['20250823_180428.jpg', 'College life begins'],

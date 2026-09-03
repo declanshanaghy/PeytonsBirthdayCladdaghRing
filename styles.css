@@ -171,6 +171,7 @@ body {
   justify-content: center;
   padding: var(--edge);
   text-align: center;
+  overflow: hidden;
   opacity: 0;
   pointer-events: none;
   transition: opacity 1.8s ease;
@@ -182,7 +183,12 @@ body {
   pointer-events: auto;
 }
 
-.card__inner { position: relative; z-index: 2; }
+.card__inner {
+  position: relative;
+  z-index: 2;
+  max-height: 100%;
+  max-width: 100%;
+}
 
 /* Title card */
 
@@ -191,7 +197,7 @@ body {
 .title__hb, .title__bd, .title__age, .title__love { margin: 0; line-height: 1; }
 
 .title__hb {
-  font-size: clamp(1.6rem, 6vw, 4rem);
+  font-size: clamp(1rem, min(6vw, 5.5vh), 4rem);
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -200,7 +206,7 @@ body {
 }
 
 .title__age {
-  font-size: clamp(6rem, 26vw, 16rem);
+  font-size: clamp(3.5rem, min(26vw, 34vh), 16rem);
   font-weight: 800;
   color: var(--accent);
   text-shadow: 0 0 60px var(--glow), 0 0 120px var(--glow);
@@ -214,13 +220,13 @@ body {
 }
 
 .title__bd {
-  font-size: clamp(1.5rem, 5.5vw, 3.6rem);
+  font-size: clamp(1.1rem, min(5.5vw, 6vh), 3.6rem);
   font-weight: 700;
 }
 
 .title__love {
-  margin-top: 0.9em;
-  font-size: clamp(1.1rem, 3.4vw, 2rem);
+  margin-top: min(0.9em, 3vh);
+  font-size: clamp(0.9rem, min(3.4vw, 3.6vh), 2rem);
   font-style: italic;
   color: var(--accent-soft);
   opacity: 0.92;
@@ -229,13 +235,13 @@ body {
 /* Buttons */
 
 .start, .replay {
-  margin-top: 2.2rem;
+  margin-top: min(2.2rem, 4vh);
   display: inline-flex;
   align-items: center;
   gap: 0.6em;
-  padding: 0.85em 2.1em;
+  padding: 0.7em 2.1em;
   font: inherit;
-  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  font-size: clamp(0.9rem, min(2.4vw, 2.6vh), 1.3rem);
   font-weight: 600;
   color: #1b1020;
   background: linear-gradient(140deg, var(--accent-soft), var(--accent));
@@ -297,7 +303,7 @@ body {
 
 .finale__text {
   margin: 0;
-  font-size: clamp(2.1rem, 8.5vw, 6rem);
+  font-size: clamp(1.5rem, min(8.5vw, 13vh), 6rem);
   font-weight: 800;
   line-height: 1.12;
   color: var(--accent);
