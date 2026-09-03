@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy 19th Birthday PeyPey</title>
+<meta name="description" content="A birthday slideshow for Peyton, with the story of a Claddagh ring.">
+<link rel="stylesheet" href="styles.css">
+<link rel="preload" as="image" href="web/other/20250821_194011.jpg">
+<link rel="preload" as="image" href="web/rings/01-20260902_011243-FreshResinPrint.jpg">
+</head>
+<body>
+
+<div class="confetti" id="confetti" aria-hidden="true"></div>
+
+<!-- Stage: the two slideshow panes -->
+<main class="stage" id="stage" aria-hidden="true">
+  <div class="banner" id="banner"></div>
+  <div class="panes">
+    <section class="pane pane--rings">
+      <div class="frame" id="frame-rings">
+        <img class="slide" alt="">
+        <img class="slide" alt="">
+      </div>
+      <p class="label" id="label-rings"></p>
+    </section>
+    <section class="pane pane--other">
+      <div class="frame" id="frame-other">
+        <img class="slide" alt="">
+        <img class="slide" alt="">
+      </div>
+      <p class="caption" id="label-other"></p>
+    </section>
+  </div>
+</main>
+
+<!-- Title card, doubles as the start screen -->
+<div class="card card--title is-visible" id="title-card">
+  <div class="card__inner">
+    <p class="title__hb">Happy</p>
+    <p class="title__age"><span id="age-19">19</span><sup>th</sup></p>
+    <p class="title__bd">Birthday PeyPey</p>
+    <p class="title__love">Love, Dad</p>
+    <button class="start" id="start-btn" type="button">
+      <span class="start__icon" aria-hidden="true">&#9654;</span>
+      <span class="start__text">Tap to start</span>
+    </button>
+  </div>
+</div>
+
+<!-- Finale -->
+<div class="card card--finale" id="finale-card">
+  <img class="finale__ring" id="finale-ring" src="" alt="">
+  <div class="card__inner">
+    <p class="finale__text">Enjoy the last<br>of your teens!</p>
+    <button class="replay" id="replay-btn" type="button">Play it again</button>
+  </div>
+</div>
+
+<audio id="audio" preload="auto" src="web/music/BestToYou.mp3"></audio>
+
+<script src="app.js"></script>
+</body>
+</html>

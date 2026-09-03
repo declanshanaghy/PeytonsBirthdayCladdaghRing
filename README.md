@@ -1,24 +1,53 @@
 # Peyton's Birthday Claddagh Ring
 
-Photo log of making a Claddagh ring for Peyton's birthday — from resin print to
-gold-plated finished piece, modeled on my grandfather's original ring.
+A birthday slideshow for Peyton's 19th, and the photo log of the Claddagh ring
+made for her — modelled on her great-grandfather's original.
 
-## The process
+**▶ [View the slideshow](https://declanshanaghy.github.io/PeytonsBirthdayCladdaghRing/)**
 
-| # | Step | Photo |
-|---|------|-------|
-| 01 | Fresh resin print | `images/01-20260902_011243-FreshResinPrint.jpg` |
-| 02 | Resin print close-up | `images/02-20260902_011415-ResinPrintCloseUp.jpg` |
-| 03 | Raw brass casting | `images/03-20260902_144122-RawBrassCasting.jpg` |
-| 04 | After magnetic tumbling | `images/04-20260902_151251-AfterMagneticTumbling.jpg` |
-| 06 | First sanding down | `images/06-20260902_155630-FirstSandingDown.jpg` |
-| 07 | Final polish | `images/07-20260902_161521-FinalPolish.jpg` |
-| 08 | Nickel electroplating | `images/08-20260902_163752-NickelElectroplating.jpg` |
-| 09 | Gold electroplating | `images/09-20260902_170130-GoldElectroplating.jpg` |
-| 10 | Nickel and gold rings | `images/10-20260902_170834-NickelAndGoldRings.jpg` |
-| 12 | Finished gold ring | `images/12-20260902_171040-FinishedGoldRing.jpg` |
-| 15 | Two finished gold rings | `images/15-20260902_171959-TwoFinishedGoldRings.jpg` |
-| 16 | Our two rings and grandfather's original | `images/16-20260902_172027-OurTwoRingsAndGrandfathersOriginal.jpg` |
-| 17 | Final PeyPey ring | `images/17-20260902_182815-FinalPeyPeyRing.jpg` |
+Two slideshows run side by side (stacked on a phone): the ring being made on the
+left, memories of the year on the right, set to *Best To You*. It opens on a
+title card, cycles through six birthday themes, and ends with the finished ring
+exactly as the song does.
 
-Images are named `NN-YYYYMMDD_HHMMSS-Description.jpg` and sort in chronological order.
+## Repo layout
+
+| Path | What's in it |
+|---|---|
+| `index.html`, `styles.css`, `app.js` | The site |
+| `photos-rings/` | Original ring build photos |
+| `photos-other/` | Original memory photos |
+| `music/` | Original audio |
+| `web/` | Web-optimized copies the site actually loads |
+| `scripts/optimize.sh` | Regenerates `web/` from the originals |
+
+The originals are never touched. If you swap or add a photo, drop it in the
+originals folder, add it to the relevant list at the top of `app.js`, then run
+`./scripts/optimize.sh`.
+
+## Editing the words
+
+Everything readable lives in three arrays at the top of `app.js`:
+
+- `RINGS` — each ring photo and its build-step label
+- `MEMORIES` — each memory photo and its caption
+- `THEMES` — the six birthday messages and their colour palettes
+
+## Timing
+
+The show is driven off `audio.currentTime`, not timers, so it cannot drift away
+from the song even if the network stalls or the phone screen sleeps. The
+constants are in `TIMING` in `app.js`; the song is 225.88s.
+
+| Phase | Window |
+|---|---|
+| Title card | 0 – 9s |
+| Slideshow | 9 – 210.9s (rings every 15.5s, memories every 10.1s) |
+| Fade out | 208.9 – 210.9s |
+| "Enjoy the last of your teens!" | 210.9 – 225.9s |
+
+## The ring
+
+Resin print → brass casting → magnetic tumbling → sanding → polish → nickel
+electroplating → gold electroplating. The photos in `photos-rings/` are numbered
+in the order the steps happened.

@@ -1,0 +1,347 @@
+/* Peyton's 19th birthday slideshow */
+
+:root {
+  /* Theme variables — swapped by app.js every theme cycle */
+  --bg-a: #2b1b3d;
+  --bg-b: #120a1c;
+  --accent: #ffd166;
+  --accent-soft: #ffe9a8;
+  --text: #fff6e5;
+  --mat: rgba(255, 255, 255, 0.05);
+  --glow: rgba(255, 209, 102, 0.35);
+
+  --pane-gap: clamp(0.6rem, 1.6vw, 1.6rem);
+  --edge: clamp(0.7rem, 2vw, 2rem);
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #0c0714;
+}
+
+body {
+  font-family: "Avenir Next", "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 20% 0%, var(--bg-a) 0%, transparent 60%),
+    radial-gradient(ellipse at 85% 100%, var(--bg-a) 0%, transparent 55%),
+    linear-gradient(160deg, var(--bg-b), #08050f 70%);
+  background-attachment: fixed;
+  transition: background 2s ease;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------------------------------------------------------------- stage */
+
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: var(--edge);
+  padding-top: max(var(--edge), env(safe-area-inset-top));
+  padding-bottom: max(var(--edge), env(safe-area-inset-bottom));
+  gap: var(--pane-gap);
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+.stage.is-visible { opacity: 1; }
+.stage.is-fading  { opacity: 0; transition: opacity 2s ease; }
+
+.banner {
+  flex: 0 0 auto;
+  text-align: center;
+  font-size: clamp(1.15rem, 3.4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  color: var(--accent);
+  text-shadow: 0 0 26px var(--glow), 0 2px 10px rgba(0, 0, 0, 0.6);
+  min-height: 1.3em;
+  transition: opacity 0.7s ease, color 2s ease;
+}
+
+.banner.is-swapping { opacity: 0; }
+
+.panes {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--pane-gap);
+}
+
+@media (min-width: 900px) and (orientation: landscape) {
+  .panes {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+  }
+}
+
+.pane {
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* --------------------------------------------------------------- frames */
+
+.frame {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--mat);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 18px 50px rgba(0, 0, 0, 0.55),
+    0 0 60px -20px var(--glow);
+  transition: box-shadow 2s ease, background 2s ease;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  will-change: opacity, transform;
+}
+
+.slide.is-active {
+  opacity: 1;
+  animation: drift 18s ease-out forwards;
+}
+
+@keyframes drift {
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.045); }
+}
+
+/* ------------------------------------------------------------- captions */
+
+.label, .caption {
+  flex: 0 0 auto;
+  margin: 0;
+  text-align: center;
+  min-height: 1.5em;
+  line-height: 1.25;
+  transition: opacity 0.55s ease, color 2s ease;
+}
+
+.label.is-swapping, .caption.is-swapping { opacity: 0; }
+
+.label {
+  font-size: clamp(0.72rem, 1.5vw, 0.98rem);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  opacity: 0.75;
+}
+
+.caption {
+  font-size: clamp(1rem, 2.4vw, 1.7rem);
+  font-weight: 600;
+  color: var(--text);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+/* ----------------------------------------------------------- full cards */
+
+.card {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--edge);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.8s ease;
+  z-index: 10;
+}
+
+.card.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.card__inner { position: relative; z-index: 2; }
+
+/* Title card */
+
+.card--title { background: radial-gradient(ellipse at center, rgba(20, 8, 32, 0.65), rgba(8, 5, 15, 0.92)); }
+
+.title__hb, .title__bd, .title__age, .title__love { margin: 0; line-height: 1; }
+
+.title__hb {
+  font-size: clamp(1.6rem, 6vw, 4rem);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  opacity: 0.9;
+}
+
+.title__age {
+  font-size: clamp(6rem, 26vw, 16rem);
+  font-weight: 800;
+  color: var(--accent);
+  text-shadow: 0 0 60px var(--glow), 0 0 120px var(--glow);
+  margin: 0.05em 0;
+}
+
+.title__age sup {
+  font-size: 0.3em;
+  vertical-align: super;
+  letter-spacing: 0.02em;
+}
+
+.title__bd {
+  font-size: clamp(1.5rem, 5.5vw, 3.6rem);
+  font-weight: 700;
+}
+
+.title__love {
+  margin-top: 0.9em;
+  font-size: clamp(1.1rem, 3.4vw, 2rem);
+  font-style: italic;
+  color: var(--accent-soft);
+  opacity: 0.92;
+}
+
+/* Buttons */
+
+.start, .replay {
+  margin-top: 2.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.85em 2.1em;
+  font: inherit;
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  font-weight: 600;
+  color: #1b1020;
+  background: linear-gradient(140deg, var(--accent-soft), var(--accent));
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 10px 40px -8px var(--glow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.6s ease;
+  animation: pulse 2.6s ease-in-out infinite;
+}
+
+.start:hover, .replay:hover { transform: translateY(-2px) scale(1.03); }
+.start:active, .replay:active { transform: translateY(0) scale(0.99); }
+.start.is-hidden { opacity: 0; pointer-events: none; animation: none; }
+
+.start__icon { font-size: 0.85em; }
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 10px 40px -8px var(--glow); }
+  50%      { box-shadow: 0 10px 55px 2px var(--glow); }
+}
+
+/* Finale */
+
+.card--finale { background: radial-gradient(ellipse at center, rgba(30, 12, 45, 0.7), rgba(6, 4, 12, 0.96)); }
+
+/* The whole ring shows behind the message -- contain, not cover, so it reads
+   as a ring rather than a macro crop. */
+.finale__ring {
+  position: absolute;
+  inset: 6%;
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  opacity: 0;
+  filter: saturate(1.15);
+  transition: opacity 2.5s ease, transform 16s ease-out;
+  z-index: 0;
+}
+
+.card--finale.is-visible .finale__ring {
+  opacity: 0.55;
+  transform: scale(1.06);
+}
+
+/* Scrim between the ring and the message, so the text always carries. */
+.card--finale::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse at center, rgba(8, 4, 14, 0.3), rgba(6, 4, 12, 0.78));
+  opacity: 0;
+  transition: opacity 2s ease;
+  pointer-events: none;
+}
+
+.card--finale.is-visible::after { opacity: 1; }
+
+.finale__text {
+  margin: 0;
+  font-size: clamp(2.1rem, 8.5vw, 6rem);
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--accent);
+  text-shadow: 0 0 50px var(--glow), 0 4px 24px rgba(0, 0, 0, 0.8);
+}
+
+.replay { opacity: 0; }
+.replay.is-shown { opacity: 1; }
+
+/* ------------------------------------------------------------- confetti */
+
+/* Sits behind the photo panes so it never litters anyone's face; brought to
+   the front only for the title and finale cards. */
+.confetti {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 1.5s ease;
+}
+
+.confetti.is-front { z-index: 20; }
+
+.confetti i {
+  position: absolute;
+  top: -8vh;
+  width: 9px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0%   { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 0; }
+  8%   { opacity: 0.85; }
+  92%  { opacity: 0.85; }
+  100% { transform: translate3d(var(--sway, 30px), 112vh, 0) rotate(720deg); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confetti { display: none; }
+  .slide.is-active { animation: none; }
+  .card--finale.is-visible .finale__ring { transform: none; }
+  .start, .replay { animation: none; }
+}
