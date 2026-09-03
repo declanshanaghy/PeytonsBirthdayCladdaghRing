@@ -45,7 +45,7 @@ const MEMORIES = [
   ['20260615_135531.jpg', 'The Giant’s Causeway'],
   ['20260616_114007.jpg', 'Derry days'],
   ['20260616_140723.jpg', 'Visiting the Derry murals'],
-  ['20260616_141539.jpg', 'Derry, one more time'],
+  ['20260616_141539.jpg', 'Derry Brigade Martyrs'],
   ['20260617_142615.jpg', 'Windswept and grinning'],
   ['20260617_144429.jpg', 'The mad gollywogs'],
   ['20260619_134205.jpg', 'She thought it was a blowball!'],
