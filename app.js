@@ -20,7 +20,7 @@ const RINGS = [
   ['01-20260902_011243-FreshResinPrint.jpg',                  'Fresh resin print'],
   ['02-20260902_011415-ResinPrintCloseUp.jpg',                'Resin print close-up'],
   ['03-20260902_144122-RawBrassCasting.jpg',                  'Raw brass casting'],
-  ['04-20260902_151251-AfterMagneticTumbling.jpg',            'After magnetic tumbling'],
+  ['04-20260902_151251-AfterMagneticTumbling.jpg',            'First rough cleanup'],
   ['06-20260902_155630-FirstSandingDown.jpg',                 'First sanding down'],
   ['07-20260902_161521-FinalPolish.jpg',                      'Final polish'],
   ['08-20260902_163752-NickelElectroplating.jpg',             'Nickel electroplating'],
