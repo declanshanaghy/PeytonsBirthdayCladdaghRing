@@ -1,0 +1,206 @@
+/* Peyton's 19th birthday card — a printable page.
+   Screen shows the ivory card on the slideshow's plum ground; print drops the
+   ground and the card fills the sheet.
+
+   The card is one page-shaped box sized to the window, and every measure
+   inside it — frame, knotwork, type — is in container units (cqw), so the
+   whole thing scales as a piece instead of reflowing. */
+
+:root {
+  --paper: #fbf5e6;
+  --ink: #33234a;
+  --gold: #9a7526;
+  --gold-soft: #c9a75a;
+
+  --pad: clamp(0.4rem, 2vw, 1.6rem);
+
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background:
+    radial-gradient(ellipse at 20% 0%, #3a1f56 0%, transparent 60%),
+    radial-gradient(ellipse at 85% 100%, #3a1f56 0%, transparent 55%),
+    linear-gradient(160deg, #150c24, #08050f 70%);
+  background-attachment: fixed;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--pad);
+  overflow: hidden;
+  font-family: "Iowan Old Style", "Hoefler Text", "Palatino Linotype", Palatino,
+               "Book Antiqua", Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+/* ---------------------------------------------------------------- sheet */
+
+/* Letter-shaped: as wide as the window allows, never taller than it. */
+.sheet {
+  position: relative;
+  width: min(100%, calc((100dvh - 2 * var(--pad)) * 8.5 / 11));
+  aspect-ratio: 8.5 / 11;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border-radius: 3px;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------- frame */
+
+/* Frame geometry, all relative to the sheet's width. The knot band is --band
+   thick and sits just inside the border box; corner discs are centred on the
+   band's centre line. */
+.border {
+  --frame: 3.6cqw;
+  --band: 3.5cqw;
+  --disc: 8cqw;
+
+  position: absolute;
+  inset: var(--frame);
+  pointer-events: none;
+}
+
+.defs { position: absolute; width: 0; height: 0; }
+
+.edge { position: absolute; }
+
+/* Each edge runs the full side; the corner discs sit over the junctions. */
+.edge--top, .edge--bottom {
+  left: 0;
+  width: 100%;
+  height: var(--band);
+}
+.edge--top    { top: 0; }
+.edge--bottom { bottom: 0; }
+
+.edge--left, .edge--right {
+  top: 0;
+  height: 100%;
+  width: var(--band);
+}
+.edge--left  { left: 0; }
+.edge--right { right: 0; }
+
+.corner {
+  position: absolute;
+  width: var(--disc);
+  height: var(--disc);
+  /* Centre the disc on the band's centre line at each corner. */
+  --offset: calc(var(--band) / 2 - var(--disc) / 2);
+}
+.corner--tl { top: var(--offset);    left: var(--offset); }
+.corner--tr { top: var(--offset);    right: var(--offset); }
+.corner--bl { bottom: var(--offset); left: var(--offset); }
+.corner--br { bottom: var(--offset); right: var(--offset); }
+
+.crest {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Each crest keeps its drawing's aspect and straddles the band's centre line. */
+.crest--top {
+  width: 14.8cqw;
+  height: 9.3cqw;
+  top: calc(var(--band) / 2 - 4.65cqw);
+}
+
+.crest--bottom {
+  width: 7.1cqw;
+  height: 8.5cqw;
+  bottom: calc(var(--band) / 2 - 4.25cqw);
+}
+
+/* --------------------------------------------------------------- letter */
+
+.letter {
+  position: relative;
+  z-index: 1;
+  margin: auto 0;
+  width: 100%;
+  padding: 12cqw 8.5cqw;
+  color: var(--ink);
+  text-align: center;
+}
+
+.line {
+  margin: 0 0 1.15em;
+  font-size: 3.2cqw;
+  line-height: 1.62;
+  text-wrap: balance;
+}
+
+.line--title {
+  margin-bottom: 1.5em;
+  font-size: 5.2cqw;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--gold);
+  letter-spacing: 0.01em;
+}
+
+.line--gap { margin-top: 2em; }
+
+.line--sign {
+  margin-bottom: 0.35em;
+  font-style: italic;
+  font-size: 3.4cqw;
+}
+
+/* --------------------------------------------------------------- print */
+
+.print-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 5;
+  padding: 0.6em 1.5em;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1b1020;
+  background: linear-gradient(140deg, #ffe9a8, #ffd166);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 10px 34px -10px rgba(255, 209, 102, 0.6);
+}
+
+.print-btn:hover { transform: translateY(-1px); }
+
+@page {
+  size: letter portrait;
+  margin: 0.4in;
+}
+
+@media print {
+  html, body { background: #fff; height: auto; }
+  body { display: block; padding: 0; overflow: visible; }
+
+  .print-btn { display: none; }
+
+  /* The page box replaces the window. An explicit height keeps the sheet a
+     size container, so every cqw measure carries over to paper unchanged. */
+  .sheet {
+    width: 100%;
+    height: 10in;
+    aspect-ratio: auto;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}

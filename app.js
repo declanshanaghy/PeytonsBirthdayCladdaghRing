@@ -15,21 +15,31 @@ const TIMING = {
   crossfade:  1.2               // must match .slide transition in styles.css
 };
 
-// Ring build, in process order. Label shown under the ring pane.
+// Ring build, in process order. Label shown under the ring pane, section
+// heading shown above it.
+const GOLD   = 'Gold Ring Construction';
+const SILVER = 'Silver Ring Construction';
+
+// Shown only on the finale card, never in the slideshow run.
+const FINALE_RING = '22-20260903_173128-GoldAndSilverRingFinished.jpg';
+
 const RINGS = [
-  ['01-20260902_011243-FreshResinPrint.jpg',                  'Fresh resin print'],
-  ['02-20260902_011415-ResinPrintCloseUp.jpg',                'Resin print close-up'],
-  ['03-20260902_144122-RawBrassCasting.jpg',                  'Raw brass casting'],
-  ['04-20260902_151251-AfterMagneticTumbling.jpg',            'First rough cleanup'],
-  ['06-20260902_155630-FirstSandingDown.jpg',                 'First sanding down'],
-  ['07-20260902_161521-FinalPolish.jpg',                      'Final polish'],
-  ['08-20260902_163752-NickelElectroplating.jpg',             'Nickel electroplating'],
-  ['09-20260902_170130-GoldElectroplating.jpg',               'Gold electroplating'],
-  ['10-20260902_170834-NickelAndGoldRings.jpg',               'Nickel and gold rings'],
-  ['12-20260902_171040-FinishedGoldRing.jpg',                 'Finished gold ring'],
-  ['15-20260902_171959-TwoFinishedGoldRings.jpg',             'Two finished gold rings'],
-  ['16-20260902_172027-OurTwoRingsAndGrandfathersOriginal.jpg','Our two rings and Grandad’s original'],
-  ['17-20260902_182815-FinalPeyPeyRing.jpg',                  'The final PeyPey ring']
+  ['01-20260902_011243-FreshResinPrint.jpg',                  'Fresh resin print',            GOLD],
+  ['02-20260902_011415-ResinPrintCloseUp.jpg',                'Resin print close-up',         GOLD],
+  ['03-20260902_144122-RawBrassCasting.jpg',                  'Raw brass casting',            GOLD],
+  ['04-20260902_151251-AfterMagneticTumbling.jpg',            'First rough cleanup',          GOLD],
+  ['06-20260902_155630-FirstSandingDown.jpg',                 'First sanding down',           GOLD],
+  ['07-20260902_161521-FinalPolish.jpg',                      'Final polish',                 GOLD],
+  ['08-20260902_163752-NickelElectroplating.jpg',             'Nickel electroplating',        GOLD],
+  ['09-20260902_170130-GoldElectroplating.jpg',               'Gold electroplating',          GOLD],
+  ['10-20260902_170834-NickelAndGoldRings.jpg',               'Nickel and gold rings',        GOLD],
+  ['12-20260902_171040-FinishedGoldRing.jpg',                 'Finished gold ring',           GOLD],
+  ['15-20260902_171959-TwoFinishedGoldRings.jpg',             'Two finished gold rings',      GOLD],
+  ['16-20260902_172027-OurTwoRingsAndGrandfathersOriginal.jpg','Our two rings and Grandad’s original', GOLD],
+  ['17-20260902_182815-FinalPeyPeyRing.jpg',                  'The final PeyPey ring',        GOLD],
+  ['18-20260903_142417-SilverRingRawCasting.jpg',             'Silver ring, raw casting',     SILVER],
+  ['19-20260903_154540-SilverRingAfterPickle.jpg',            'Silver ring, after the pickle',SILVER],
+  ['21-20260903_172949-SilverRingPolished.jpg',               'The polished silver rings',    SILVER]
 ];
 
 // Memories, chronological. Caption shown under the memories pane.
@@ -98,6 +108,7 @@ const tracks = {
     base: 'web/rings/',
     frame: $('frame-rings'),
     labelEl: $('label-rings'),
+    titleEl: $('title-rings'),
     slides: $('frame-rings').querySelectorAll('.slide'),
     front: 0,
     index: -1,
@@ -126,7 +137,7 @@ const RING_STEP   = SHOW_LENGTH / RINGS.length;
 const OTHER_STEP  = SHOW_LENGTH / MEMORIES.length;
 const THEME_STEP  = SHOW_LENGTH / THEMES.length;
 
-finaleRing.src = tracks.rings.base + RINGS[RINGS.length - 1][0];
+finaleRing.src = tracks.rings.base + FINALE_RING;
 
 /* -------------------------------------------------------------- helpers */
 
@@ -155,7 +166,7 @@ function showPhoto(track, i) {
   if (i === track.index) return;
   track.index = i;
 
-  const [file, label] = track.items[i];
+  const [file, label, section] = track.items[i];
   const backIndex = 1 - track.front;
   const back = track.slides[backIndex];
   const front = track.slides[track.front];
@@ -191,6 +202,7 @@ function showPhoto(track, i) {
   track.timer = setTimeout(done, 2000);
 
   setText(track.labelEl, label);
+  if (track.titleEl) setText(track.titleEl, section);
   preload(track, i + 1);
   preload(track, i + 2);
 }

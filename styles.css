@@ -96,6 +96,26 @@ body {
   gap: 0.5rem;
 }
 
+/* Section heading over the ring pane -- which of the two rings is being built.
+   The memories pane carries an empty one so both frames start at the same
+   height. */
+.pane-title {
+  flex: 0 0 auto;
+  margin: 0;
+  text-align: center;
+  min-height: 1.4em;
+  font-size: clamp(0.8rem, 1.8vw, 1.15rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--accent);
+  text-shadow: 0 0 22px var(--glow), 0 2px 8px rgba(0, 0, 0, 0.6);
+  transition: opacity 0.55s ease, color 2s ease;
+}
+
+.pane-title.is-swapping { opacity: 0; }
+
 /* --------------------------------------------------------------- frames */
 
 .frame {

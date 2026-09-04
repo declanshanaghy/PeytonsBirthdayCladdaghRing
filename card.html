@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy 19th Birthday PeyPey — a card to print</title>
+<meta name="description" content="A printable birthday card for Peyton, framed in Claddagh and Celtic knotwork.">
+<link rel="stylesheet" href="card.css">
+</head>
+<body>
+
+<button class="print-btn" type="button" onclick="window.print()">Print this card</button>
+
+<div class="sheet">
+
+  <!-- Celtic frame: a plaited knot band on all four edges, trinity knots in
+       circles at the corners, a Claddagh crest at the top and a Celtic cross
+       at the foot. All hand-drawn SVG so it prints at any size. -->
+  <div class="border" aria-hidden="true">
+
+    <svg class="defs">
+      <defs>
+        <!-- One tile of the two-strand plait. The strand drawn last at the
+             crossing passes over, so the weave alternates along the band. -->
+        <clipPath id="plait-cross"><rect x="14" y="0" width="12" height="26"/></clipPath>
+
+        <pattern id="plait" width="40" height="26" patternUnits="userSpaceOnUse">
+          <rect width="40" height="26" fill="var(--paper)"/>
+          <rect x="0" y="0.4" width="40" height="1.1" fill="var(--gold)"/>
+          <rect x="0" y="24.5" width="40" height="1.1" fill="var(--gold)"/>
+          <g fill="none">
+            <path d="M0,6.5 C13,6.5 27,19.5 40,19.5" stroke="var(--paper)" stroke-width="8"/>
+            <path d="M0,6.5 C13,6.5 27,19.5 40,19.5" stroke="var(--gold)" stroke-width="2.8"/>
+            <path d="M0,19.5 C13,19.5 27,6.5 40,6.5" stroke="var(--paper)" stroke-width="8"/>
+            <path d="M0,19.5 C13,19.5 27,6.5 40,6.5" stroke="var(--gold)" stroke-width="2.8"/>
+            <g clip-path="url(#plait-cross)">
+              <path d="M0,6.5 C13,6.5 27,19.5 40,19.5" stroke="var(--paper)" stroke-width="8"/>
+              <path d="M0,6.5 C13,6.5 27,19.5 40,19.5" stroke="var(--gold)" stroke-width="2.8"/>
+            </g>
+          </g>
+        </pattern>
+
+        <pattern id="plait-v" width="40" height="26" patternUnits="userSpaceOnUse"
+                 patternTransform="rotate(90)">
+          <rect width="40" height="26" fill="var(--paper)"/>
+          <rect x="0" y="0.4" width="40" height="1.1" fill="var(--gold)"/>
+          <rect x="0" y="24.5" width="40" height="1.1" fill="var(--gold)"/>
+          <g fill="none">
+            <path d="M0,6.5 C13,6.5 27,19.5 40,19.5" stroke="var(--paper)" stroke-width="8"/>
+            <path d="M0,6.5 C13,6.5 27,19.5 40,19.5" stroke="var(--gold)" stroke-width="2.8"/>
+            <path d="M0,19.5 C13,19.5 27,6.5 40,6.5" stroke="var(--paper)" stroke-width="8"/>
+            <path d="M0,19.5 C13,19.5 27,6.5 40,6.5" stroke="var(--gold)" stroke-width="2.8"/>
+            <g clip-path="url(#plait-cross)">
+              <path d="M0,6.5 C13,6.5 27,19.5 40,19.5" stroke="var(--paper)" stroke-width="8"/>
+              <path d="M0,6.5 C13,6.5 27,19.5 40,19.5" stroke="var(--gold)" stroke-width="2.8"/>
+            </g>
+          </g>
+        </pattern>
+
+        <!-- Trinity knot: three vesica leaves on a triangle, ringed. -->
+        <g id="triquetra" fill="none" stroke-linejoin="round">
+          <circle cx="30" cy="30" r="26.5" stroke="var(--gold)" stroke-width="1.2"/>
+          <circle cx="30" cy="30" r="24" stroke="var(--gold)" stroke-width="2"/>
+          <path d="M30,11 A20.5,20.5 0 0,1 46.45,39.5 A20.5,20.5 0 0,1 30,11 Z"
+                stroke="var(--paper)" stroke-width="6.5"/>
+          <path d="M30,11 A20.5,20.5 0 0,1 46.45,39.5 A20.5,20.5 0 0,1 30,11 Z"
+                stroke="var(--gold)" stroke-width="2.4"/>
+          <path d="M46.45,39.5 A20.5,20.5 0 0,1 13.55,39.5 A20.5,20.5 0 0,1 46.45,39.5 Z"
+                stroke="var(--paper)" stroke-width="6.5"/>
+          <path d="M46.45,39.5 A20.5,20.5 0 0,1 13.55,39.5 A20.5,20.5 0 0,1 46.45,39.5 Z"
+                stroke="var(--gold)" stroke-width="2.4"/>
+          <path d="M13.55,39.5 A20.5,20.5 0 0,1 30,11 A20.5,20.5 0 0,1 13.55,39.5 Z"
+                stroke="var(--paper)" stroke-width="6.5"/>
+          <path d="M13.55,39.5 A20.5,20.5 0 0,1 30,11 A20.5,20.5 0 0,1 13.55,39.5 Z"
+                stroke="var(--gold)" stroke-width="2.4"/>
+        </g>
+
+        <!-- One hand of the Claddagh; mirrored for the other side. -->
+        <g id="claddagh-hand" fill="none" stroke="var(--gold)"
+           stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="6" y="35" width="11" height="15" rx="3"/>
+          <path d="M9.5,37.5 V47.5 M13,36.5 V48.5"/>
+          <path d="M17,37.5 C27,34.5 34,36.5 41,42.5 C36,50.5 27,52.5 17,48.5 Z"/>
+          <path d="M22,40 C28,38.5 33,39.5 37,43"/>
+          <path d="M21,43.5 C27,42.5 32,43 36,46"/>
+        </g>
+      </defs>
+    </svg>
+
+    <!-- The viewBoxes match each edge's proportions (fixed, since the sheet is
+         always letter-shaped), so the weave scales with the card instead of
+         being cropped. Edges run the full side and the corner discs cover
+         where they meet. -->
+    <svg class="edge edge--top" viewBox="0 0 689 26" preserveAspectRatio="xMidYMid slice">
+      <rect width="689" height="26" fill="url(#plait)"/></svg>
+    <svg class="edge edge--bottom" viewBox="0 0 689 26" preserveAspectRatio="xMidYMid slice">
+      <rect width="689" height="26" fill="url(#plait)"/></svg>
+    <svg class="edge edge--left" viewBox="0 0 26 908" preserveAspectRatio="xMidYMid slice">
+      <rect width="26" height="908" fill="url(#plait-v)"/></svg>
+    <svg class="edge edge--right" viewBox="0 0 26 908" preserveAspectRatio="xMidYMid slice">
+      <rect width="26" height="908" fill="url(#plait-v)"/></svg>
+
+    <svg class="corner corner--tl" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r="29" fill="var(--paper)"/><use href="#triquetra"/>
+    </svg>
+    <svg class="corner corner--tr" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r="29" fill="var(--paper)"/><use href="#triquetra"/>
+    </svg>
+    <svg class="corner corner--bl" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r="29" fill="var(--paper)"/><use href="#triquetra"/>
+    </svg>
+    <svg class="corner corner--br" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r="29" fill="var(--paper)"/><use href="#triquetra"/>
+    </svg>
+
+    <!-- Claddagh: crowned heart held in two hands. -->
+    <svg class="crest crest--top" viewBox="0 0 120 76">
+      <ellipse cx="60" cy="38" rx="59" ry="37" fill="var(--paper)"/>
+      <g fill="none" stroke="var(--gold)" stroke-width="2.4"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M46,30 L50,17 L55,25 L60,13 L65,25 L70,17 L74,30"/>
+        <path d="M45,30 H75"/>
+        <path d="M60,64 C47,55 40,47 40,40.5 C40,35 44.5,31.5 49.5,31.5
+                 C54,31.5 58,34.5 60,38 C62,34.5 66,31.5 70.5,31.5
+                 C75.5,31.5 80,35 80,40.5 C80,47 73,55 60,64 Z"/>
+      </g>
+      <g fill="var(--gold)">
+        <circle cx="50" cy="15" r="2"/><circle cx="60" cy="11" r="2"/><circle cx="70" cy="15" r="2"/>
+      </g>
+      <use href="#claddagh-hand"/>
+      <use href="#claddagh-hand" transform="translate(120,0) scale(-1,1)"/>
+    </svg>
+
+    <!-- Celtic cross. -->
+    <svg class="crest crest--bottom" viewBox="0 0 52 62">
+      <ellipse cx="26" cy="31" rx="25" ry="30" fill="var(--paper)"/>
+      <g fill="none" stroke="var(--gold)" stroke-linecap="round">
+        <path d="M26,5 V57 M7,22 H45" stroke-width="7"/>
+        <circle cx="26" cy="22" r="13" stroke-width="5"/>
+        <path d="M26,5 V57 M7,22 H45" stroke="var(--paper)" stroke-width="2.2"/>
+        <circle cx="26" cy="22" r="13" stroke="var(--paper)" stroke-width="1.6"/>
+      </g>
+    </svg>
+
+  </div>
+
+  <div class="letter">
+    <p class="line line--title">Happy 19th Birthday PeyPey :-D</p>
+    <p class="line">I'm so proud of you, growing up and exploring the world.</p>
+    <p class="line">Here are 2 Claddagh rings, of which I made identical copies for both of us to carry everywhere so we can stay close in our own tiny way.</p>
+    <p class="line line--gap">A stirling silver one for when you're having a quiet day, and a 24K gold plated bronze one for when you're feeling flashy! :-)</p>
+    <p class="line line--sign line--gap">Love you millions,</p>
+    <p class="line line--sign">Dad</p>
+  </div>
+
+</div>
+
+</body>
+</html>
